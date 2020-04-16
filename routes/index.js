@@ -1,5 +1,5 @@
 import { Router } from "express";
-import db from "../database/models/index";
+import { getAllBooks, addBook } from "../controllers/bookcontroller";
 
 const router = Router();
 
@@ -9,21 +9,13 @@ router.get("/", async function (_req, res, _next) {
     description: "Love, romance and comedy",
     price: "#5000",
   };
-  try {
-    const book = await db.Book.create(bookObj);
-    res.json({ book });
-  } catch (error) {
-    res.json({ error: error.message });
-  }
+  const book = await addBook(bookObj);
+  res.json({ book });
 });
 
 router.get("/all", async function (_req, res, _next) {
-  try {
-    const books = await db.Book.findAll();
-    res.json({ books });
-  } catch (error) {
-    res.json({ error: error.message });
-  }
+  const books = await getAllBooks();
+  res.json({ books });
 });
 
 export default router;
