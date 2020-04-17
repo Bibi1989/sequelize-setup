@@ -1,6 +1,6 @@
 # Step 1
 
-- install necessary package @npm install sequelize sequelize-cli pg pg-hstore
+- install necessary package yarn add sequelize sequelize-cli pg pg-hstore
 
 # Step 2
 
@@ -69,7 +69,7 @@
 
 ## Install and configuring Babel
 
-- npm install --save-dev @babel/core @babel/cli @babel/node @babel/plugin-transform-runtime @babel/preset-env @babel/register @babel/runtime babel-loader
+- yarn add @babel/core @babel/cli @babel/node @babel/plugin-transform-runtime @babel/preset-env @babel/register @babel/runtime babel-loader --save-dev
 
 # Create a file name .babelrc and write to the file with this below
 
@@ -86,7 +86,7 @@
 
 ## Testing package
 
-- npm install --save-dev mocha chai chai-http nyc
+- yarn add mocha chai chai-http nyc --save-dev
 
 ## Create a folder and a test file
 
@@ -98,3 +98,12 @@
   import chatHttp from 'chai-http';
   import 'chai/register-should';
   import app from '../app'
+
+## Write the script below in your package.json file on the script property
+
+@example
+"test": "SET NODE_ENV=test&& sequelize db:migrate:undo:all && sequelize db:migrate && nyc --require @babel/register mocha ./api/test/test.js --timeout 20000 --exit"
+
+### for mac use (export NODE_ENV=test)
+
+## Finally for the test run yarn test on your terminal
