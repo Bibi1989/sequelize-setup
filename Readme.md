@@ -81,3 +81,20 @@
 # your package.json write this script below
 
 - "dev": "node or nodemon --exec babel-node ./bin/www"
+
+# Testing App
+
+## Testing package
+
+- npm install --save-dev mocha chai chai-http nyc
+
+## Create a folder and a test file
+
+## Write test but first import your node entry file ('../app) and other neccessary packages for testing
+
+@example
+
+- import chai from 'chai';
+  import chatHttp from 'chai-http';
+  import 'chai/register-should';
+  import app from '../app'
