@@ -1,18 +1,50 @@
 import db from "../database/models/index";
+import { Op } from "sequelize";
 
 export const getAllBooks = async () => {
   try {
-    const books = await db.Book.findAll();
-    return books;
+    return await db.Book.findAll();
   } catch (error) {
     return error.message;
   }
 };
 
-export const addBook = async (books) => {
+export const getABook = async (id) => {
   try {
-    const book = await db.Book.create(books);
-    return book;
+    return await db.Book.findOne({
+      where: { id: Number(id) },
+    });
+    // const oneBook = await db.Book.findAll({
+    //   where: { [Op.or]: [{ id: Number(id) }, { price: "#2000" }] },
+    // });
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const addBook = async (book) => {
+  try {
+    return await db.Book.create(book);
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const updateBook = async (book, id) => {
+  try {
+    await db.Book.update(book, {
+      where: { id: Number(id) },
+    });
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const deleteBook = async (id) => {
+  try {
+    return await db.Book.destroy({
+      where: { id: Number(id) },
+    });
   } catch (error) {
     return error.message;
   }
