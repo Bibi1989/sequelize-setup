@@ -6,6 +6,7 @@ import {
   getABook,
   deleteBook,
 } from "../controllers/bookcontroller";
+import { bookValidation } from "../validation/bookvalidation";
 
 // import BookQuery from "../controllers/BookControllerWithClass";
 
@@ -22,7 +23,9 @@ router.get("/:singleID", async (req, res, _next) => {
 });
 
 router.post("/", async (req, res, _next) => {
-  const addedBook = await addBook(req.body);
+  const { error, body } = bookValidation(req.body);
+  if (error.length > 0) return res.status(400).json({ error });
+  const addedBook = await addBook(body);
   res.json({ addedBook });
 });
 
