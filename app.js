@@ -19,6 +19,10 @@ app.use(cookieParser());
 app.use("/api/books", indexRouter);
 app.use("/users", usersRouter);
 
+app.get("*", (req, res) => {
+  res.json({ page: "Try a valid api" });
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
