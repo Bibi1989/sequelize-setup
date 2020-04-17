@@ -31,20 +31,27 @@ export const addBook = async (book) => {
 };
 
 export const updateBook = async (book, id) => {
+  const found = await db.Book.findOne({ where: { id: Number(id) } });
   try {
-    await db.Book.update(book, {
-      where: { id: Number(id) },
-    });
+    if (found) {
+      const updatedBook = await db.Book.update(book, {
+        where: { id: Number(id) },
+      });
+      if (updatedBook) return book;
+    }
   } catch (error) {
     return error.message;
   }
 };
 
 export const deleteBook = async (id) => {
+  const found = await db.Book.findOne({ where: { id: Number(id) } });
   try {
-    return await db.Book.destroy({
-      where: { id: Number(id) },
-    });
+    if (found) {
+      return await db.Book.destroy({
+        where: { id: Number(id) },
+      });
+    }
   } catch (error) {
     return error.message;
   }
