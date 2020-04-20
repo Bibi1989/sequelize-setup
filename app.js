@@ -3,6 +3,8 @@ import createError from "http-errors";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
+import swaggerDoc from "./swagger.json";
 
 dotenv.config();
 
@@ -15,6 +17,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.use("/api/books", indexRouter);
 app.use("/users", usersRouter);

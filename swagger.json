@@ -1,0 +1,144 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "An api boiler plate",
+    "description": "A boilerplate for setting up sequelize, swagger, testing and babel setup",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8008",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "Api Boiler Plate",
+      "description": "Api Boiler Plate"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/books": {
+      "post": {
+        "tags": ["Books"],
+        "description": "Create new book in system",
+        "parameters": [
+          {
+            "title": "user",
+            "in": "body",
+            "description": "Book we want to create",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New book is created",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get all books in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{bookId}": {
+      "parameters": [
+        {
+          "name": "bookId",
+          "in": "path",
+          "required": true,
+          "description": "ID of book that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get book with given ID",
+        "responses": {
+          "200": {
+            "description": "Book is found",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete book with given ID",
+        "tags": ["Books"],
+        "responses": {
+          "200": {
+            "description": "Book is deleted",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update book with give ID",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Book with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book is updated",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Books": {
+      "required": ["title", "id"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "title": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "price": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/Books"
+    }
+  }
+}
